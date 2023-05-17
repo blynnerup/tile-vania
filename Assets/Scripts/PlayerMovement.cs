@@ -11,10 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private bool _isJumping;
     private CapsuleCollider2D _collider2D;
+    private float _startGravity;
 
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private float jumpSpeed = 5;
+    [SerializeField] private float climbSpeed = 5;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
 
     private void Awake()
     {
@@ -23,11 +26,33 @@ public class PlayerMovement : MonoBehaviour
         _collider2D = GetComponent<CapsuleCollider2D>();
     }
 
+    private void Start()
+    {
+        _startGravity = _rigidbody2D.gravityScale;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         Run();          
         AdjustPlayerFacing();
+        ClimbLadder();
+    }
+
+    private void ClimbLadder()
+    {
+        var layerMask = LayerMask.GetMask("Climbing");
+        if (!_collider2D.IsTouchingLayers(layerMask))
+        {
+            _rigidbody2D.gravityScale = _startGravity;
+            _animator.SetBool(IsClimbing, false);
+            return;
+        }
+        _rigidbody2D.gravityScale = 0;
+        Vector2 playerClimbVelocity = new Vector2(_rigidbody2D.velocity.x, _moveInput.y * climbSpeed);
+        _rigidbody2D.velocity = playerClimbVelocity;
+
+        _animator.SetBool(IsClimbing, _moveInput.y != 0);
     }
 
     private void OnMove(InputValue value)
