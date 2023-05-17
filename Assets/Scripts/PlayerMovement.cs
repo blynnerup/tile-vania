@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
     private bool _isJumping;
+    private CapsuleCollider2D _collider2D;
 
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private float jumpSpeed = 5;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _collider2D = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
@@ -63,12 +65,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue value)
     {
-        if (value.isPressed)
-        {
-            _rigidbody2D.velocity += new Vector2(0, jumpSpeed);
-            // _rigidbody2D.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-            Debug.Log(value);
-        }
+        var layerMask = LayerMask.GetMask("Ground");
+        if (!value.isPressed || !_collider2D.IsTouchingLayers(layerMask)) return;
+        _rigidbody2D.velocity += new Vector2(0, jumpSpeed);
+        // _rigidbody2D.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        Debug.Log(value);
     }
 
 }
