@@ -15,9 +15,9 @@ TagManager:
   - Climbing
   - Player
   - Background
-  - 
-  - 
-  - 
+  - Enemies
+  - Hazards
+  - Projectiles
   - 
   - 
   - 
@@ -40,4 +40,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1599935143
+    locked: 0
+  - name: Platforms
+    uniqueID: 443936759
+    locked: 0
+  - name: Climbing
+    uniqueID: 1567295997
+    locked: 0
+  - name: Hazards
+    uniqueID: 2497867429
+    locked: 0
+  - name: Enemies
+    uniqueID: 1102938603
+    locked: 0
+  - name: Player
+    uniqueID: 14609421
     locked: 0
