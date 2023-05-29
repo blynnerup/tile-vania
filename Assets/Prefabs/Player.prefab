@@ -250,7 +250,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpSpeed: 7
   climbSpeed: 5
-  arrow: {fileID: 0}
+  arrow: {fileID: 7106954076909710125, guid: bab1a6b2439cfce4ca3fa75370be46d9, type: 3}
   projectileSpawn: {fileID: 1346129372308883127}
 --- !u!61 &6864523648089223124
 BoxCollider2D:

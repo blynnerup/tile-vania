@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] private Transform projectileSpawn;
     
-    
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
 
@@ -68,7 +67,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnFire()
     {
         if(!_isAlive) return;
-        Instantiate(arrow, projectileSpawn.position, transform.rotation);
+        var a = Instantiate(arrow, projectileSpawn.position, transform.rotation);
+        if (transform.localScale.x < 0)
+        {
+            a.transform.localScale = new Vector2(-1, 1);
+        }
+         
     }
 
     private void OnMove(InputValue value)
