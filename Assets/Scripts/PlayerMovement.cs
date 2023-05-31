@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -109,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
         if (!value.isPressed || !_feetCollider2D.IsTouchingLayers(layerMask)) return;
         _rigidbody2D.velocity += new Vector2(0, jumpSpeed);
         // _rigidbody2D.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-        Debug.Log(value);
     }
 
     private void Die()
@@ -120,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
             _isAlive = false;
             _rigidbody2D.velocity = new Vector2(0, 0);
             _rigidbody2D.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
 }

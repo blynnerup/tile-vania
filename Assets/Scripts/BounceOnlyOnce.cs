@@ -29,7 +29,6 @@ public class BounceOnlyOnce : MonoBehaviour
             // Debug.Log(i.point);
             if (i.point.x > Mathf.Floor(transform.position.x))
             {
-                Debug.Log(Mathf.Floor(transform.position.x));
                 StartCoroutine(NoBounceRoutine());                
             }
         }
